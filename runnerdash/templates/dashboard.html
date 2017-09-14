@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% set active_page = "dashboard" %}
+{% block head %}
+  {{ super() }}
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js'></script>
+  {{ trackmap.js }}
+{% endblock %}
+{% block container %}
+  <div class="card">
+    <h4 class="card-header">Speed Chart</h4>
+    <div class="card-body">
+      <div class="chart-container" style="position:relative; width:100%;">
+        <canvas id="speed-chart" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h4 class="card-header">Track Map</h4>
+    <div class="card-body">
+      {{ trackmap.html }}
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <script>
+    var timestamps = [{% for item in timestamps %}"{{ item }}",{% endfor %}];
+    var speeds = [{% for item in speeds %}{{ item }},{% endfor %}];
+    speedDashboard(timestamps, speeds)
+  </script>
+{% endblock %}

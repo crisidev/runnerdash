@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% set failed = failed|default(False) -%}
+{% set logout = logout|default(False) -%}
+{% set active_page = "login" %}
+{% block head %}
+  {{ super () }}
+  <link href={{ url_for('static', filename='signin.css') }} rel="stylesheet">
+{% endblock %}
+{% block container %}
+  <br>
+  <form class="form-signin" action="/login" method="POST">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="signin-name" class="sr-only">Username</label>
+    <input type="text" id="signin-name" name="signin-name" class="form-control" placeholder="Username" required autofocus>
+    <label for="signin-pass" class="sr-only">Password</label>
+    <input type="password" id="signin-pass" name="signin-pass" class="form-control" placeholder="Password" required>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="signin-remember" name="signin-remember" value="1"> Remember me
+      </label>
+    </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+  {% if failed %}
+  <br>
+  <div class="alert alert-danger" role="alert">
+    Unknown user or wrong password!
+  </div>
+  {% endif %}
+  {% if logout %}
+  <br>
+  <div class="alert alert-success" role="alert">
+    User logged out.
+  </div>
+  {% endif %}
+{% endblock %}

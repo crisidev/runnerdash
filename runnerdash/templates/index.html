@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% set active_page = "index" %}
+{% block head %}
+{{ super() }}
+{{ fullmap.js }}
+{% endblock %}
+{% block pre_container %}
+{{ fullmap.html }}
+{% endblock %}
+{% block container %}
+	  <div class="card starter-template">
+      <div class="card-body">
+        <h1>RunnerUp Dashboard</h1>
+        <p class="lead">Select one activity to view details and graphs!</p>
+      </div>
+	  </div>
+	  <br>
+      <form style="display: hidden" action="/dashboard" method="POST" id="activity-form">
+        <table style="background-color: white;" class="table table-hover">
+          <thead class="thead-inverse">
+            <tr>
+              <th>#</th>
+              <th>Activity</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>Distance</th>
+              <th>Duration</th>
+              <th>Pace</th>
+              <th>Calories Burned</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activities %}
+              <tr class="clickable-row" data-activity="{{ activity.get('activity-id') }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ activity.get('type') }}</td>
+                <td>{{ activity.get('date') }}</td>
+                <td>{{ activity.get('start_time') }}</td>
+                <td>{{ activity.get('distance') }}</td>
+                <td>{{ activity.get('duration') }}</td>
+                <td>{{ activity.get('pace') }}</td>
+                <td>{{ activity.get('calories') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        <input type="hidden" id="activity-id" name="activity-id" value=""/>
+      </form>
+{% endblock %}

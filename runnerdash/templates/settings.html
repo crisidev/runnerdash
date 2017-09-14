@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% set active_page = "settings" %}
+{% block head %}
+{{ super() }}
+{{ fullmap.js }}
+{% endblock %}
+{% block pre_container %}
+{{ fullmap.html }}
+{% endblock %}
+{% block container %}
+  <div class="card starter-template">
+    <div class="card-body">
+      <h1>Settings</h1>
+      <p class="lead">Update your settings</p>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <form class="card-form" id="settings-form" role="form" action="/settings" method="POST">
+        <div class="form-group row">
+          <label for="settings-name" class="settings-label col-3 col-form-label">Username</label>
+          <div class="col-9">
+            <input type="text" class="form-control" id="settings-name" name="settings-name" value="{{ settings.get('username') }}" required autofocus>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-pass" class="settings-label col-3 col-form-label">Password</label>
+          <div class="col-9">
+            <input type="password" class="form-control" id="settings-pass" name="settings-pass">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-birth" class="settings-label col-3 col-form-label">Birth Date</label>
+          <div class="col-9">
+            <input type="date" class="form-control" id="settings-birth" name="settings-birth" value="{{ settings.get('birth_date') }}" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-gender" class="settings-label col-3 col-form-label">Gender</label>
+          <div class="col-9">
+            <select class="custom-select" id="settings-gender" name="settings-gender" required>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-weight" class="settings-label col-3 col-form-label">Weight (kg)</label>
+          <div class="col-9">
+            <input type="number" class="form-control" id="settings-weight" name="settings-weight" value="{{ settings.get('weight') }}" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-mapskey" class="settings-label col-3 col-form-label">GoogleMaps API Key</label>
+          <div class="col-9">
+            <input type="text" class="form-control" id="settings-mapskey" name="settings-mapskey" value="{{ settings.get('gmap_apikey') }}" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="settings-apikey" class="settings-label col-3 col-form-label">RunnerDash API Key</label>
+          <div class="col-7">
+            <input type="text" class="form-control" id="settings-apikey" name="settings-apikey" value="{{ settings.get('api_key') }}" required>
+          </div>
+          <div class="col-1">
+            <input type="hidden" id="settings-regen-apikey", name="settings-regen-apikey", value="0">
+            <button id="settings-regen" type="submit" class="btn btn-primary">Generate</button>
+          </div>
+        </div>
+        <div class="float-right">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+        <br>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <script>
+    $("#settings-gender").val("{{ settings.get('gender') }}");
+
+    $("#settings-regen").on('click', function() {
+      $("#settings-regen-apikey").val("1");
+    }); 
+  </script>
+{% endblock %}

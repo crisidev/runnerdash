@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
+import argparse
+
+from runnerdash import setup_logging, handle_base_path, RunnerDash
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(prog='RunnerDash', description="RunnerUp dashboarding and visualization")
+
+    parser.add_argument('-D', '--debug', default=False, action='store_true', help="enable debug")
+    parser.add_argument('-C', '--console', default=False, action='store_true', help="enable console logging")
+    parser.add_argument('--devel', default=False, action='store_true', help="enable flash development mode")
+    parser.add_argument(
+        '-b', '--base-path', default=handle_base_path(), help="base path for db and tcx watched directory"
+    )
+    parser.add_argument('-d', '--db-file', default='runnerdash.sqlite', help="db file name")
+    parser.add_argument('-p', '--port', default=5000, type=int, help="listening port")
+    parser.add_argument('-l', '--listen', default="0.0.0.0", help="listening address")
+
+    args = parser.parse_args()
+    args.db_file = os.path.join(args.base_path, args.db_file)
+
+    return args
+
+
+def main():
+    args = parse_args()
+    setup_logging(args.debug, args.console, args.base_path)
+    try:
+        runner = RunnerDash(args.base_path, args.db_file, args.listen, args.port, args.debug, args.devel)
+        runner.start()
+    finally:
+        runner.stop()
+
+
+if __name__ == '__main__':
+    main()

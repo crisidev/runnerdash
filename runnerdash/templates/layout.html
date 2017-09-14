@@ -1,0 +1,73 @@
+{% set active_page = active_page|default('index') -%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="RunnerUp Dashboard and Visualization">
+    <meta name="author" content="Crisidev">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href={{ url_for('static', filename='favicon.ico')}}>
+
+    <title>{% block title %}RunnerDash{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+  href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+    <link href={{ url_for('static', filename='runnerdash.css') }} rel="stylesheet">
+    {% endblock %}
+  </head>
+
+  <body>
+    {% block navbar %}
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static', filename='runner.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+		RunnerDash
+      </a>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+        <ul class="navbar-nav mr-auto">
+          <li class={% if active_page == 'index' %}"nav-item active"{% else %}"nav-item"{% endif %}>
+            <a class="nav-link" href="/">Activities <span class="sr-only">(current)</span></a>
+          </li>
+          <li class={% if active_page == 'statistics' %}"nav-item active"{% else %}"nav-item"{% endif %}>
+            <a class="nav-link" href="/statistics">Statistics <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+          <li class={% if active_page == 'settings' %}"nav-item active"{% else %}"nav-item"{% endif %}>
+            <a href="/settings" class="nav-link"> <i class="icon-cog icon-1x"><span class="sr-only">(current)</span></i></a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link"> <i class="icon-signout icon-1x"><span class="sr-only">(current)</span></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endblock %}
+
+    {% block pre_container %}
+    {% endblock %}
+
+    <div class="container">{% block container %}{% endblock %}
+    </div>
+
+    {% block after_container %}
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js" integrity="sha256-yazfaIh2SXu8rPenyD2f36pKgrkv5XT+DQCDpZ/eDao=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='runnerdash.js') }}"></script>
+    
+    {% block js %}
+    {% endblock %}
+  </body>
+</html>

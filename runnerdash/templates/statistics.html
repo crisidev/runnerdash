@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% set active_page = "statistics" %}
+{% block head %}
+{{ super() }}
+{{ fullmap.js }}
+{% endblock %}
+{% block pre_container %}
+{{ fullmap.html }}
+{% endblock %}
+{% block container %}
+  <div class="card starter-template">
+    <div class="card-body">
+      <h1>Statistics</h1>
+      <p class="lead">Monitor your progresses</p>
+    </div>
+  </div>
+  <br>
+{% endblock %}
