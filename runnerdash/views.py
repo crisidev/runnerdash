@@ -21,7 +21,6 @@ class LoginView(MethodView, RunnerCalculator):
         return render_template('login.html')
 
     def post(self):
-        print(request.form)
         username = request.form['signin-name']
         remember = request.form.get('signin-remember') == "1"
         db_pass = self.db.get_user_password(username)

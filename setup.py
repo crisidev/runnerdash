@@ -14,7 +14,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'runnerdash'
 DESCRIPTION = 'RunnerUp dashboarding and visualization'
-URL = 'https://github.com/crisidev/runnerpy'
+URL = 'https://github.com/crisidev/runnerdash'
 EMAIL = 'bigo@crisidev.org'
 AUTHOR = 'Matteo Bigoi'
 

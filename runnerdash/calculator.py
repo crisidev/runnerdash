@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 class RunnerCalculator(object):
-    GRANULARITY = 30
+    GRANULARITY = 10
     MET_TABLE = {
         'running': {
             4.0: 3.0,
@@ -75,7 +75,7 @@ class RunnerCalculator(object):
         return [{
             'lat': trackpoint.get('latitude'),
             'lng': trackpoint.get('longitude')
-        } for trackpoint in trackpoints][::self.GRANULARITY]
+        } for trackpoint in trackpoints]
 
     def _get_random_activity_map(self):
         activity = random.choice(list(self.db.find_all_activities()))
